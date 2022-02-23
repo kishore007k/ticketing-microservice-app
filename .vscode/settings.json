@@ -1,3 +1,12 @@
 {
-	"cSpell.words": ["currentuser", "depl", "kubectl", "kubernetes", "skaffold"]
+	"cSpell.words": [
+		"currentuser",
+		"depl",
+		"kubectl",
+		"kubernetes",
+		"middlewares",
+		"signin",
+		"signout",
+		"skaffold"
+	]
 }

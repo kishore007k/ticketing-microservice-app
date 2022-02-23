@@ -1,17 +1,23 @@
 import express from "express";
 import { json } from "body-parser";
+import { currentUserRouter } from "./routes/current-user";
+import { signInRouter } from "./routes/sign-in";
+import { signUpRouter } from "./routes/sign-up";
+import { signOutRouter } from "./routes/sign-out";
+import { errorHandler } from "./middlewares/error-handler";
 
 const app = express();
 
 app.use(json());
 
-app.get("/api/users/currentuser", (req, res) => {
-  res.send({
-    name: "John Doe",
-    email: "JohnDoe@gmail.com",
-  });
-})
+app.use(currentUserRouter);
+app.use(signInRouter);
+app.use(signOutRouter);
+app.use(signUpRouter);
+
+// Error Handler
+app.use(errorHandler);
 
 app.listen(3000, () => {
-  console.log("Listening on http://localhost:3000");
+	console.log("Listening on http://localhost:3000");
 });
