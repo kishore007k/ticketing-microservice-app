@@ -5,6 +5,13 @@ const app = express();
 
 app.use(json());
 
-app.listen(4000, () => {
-  console.log("Listening on http://localhost:4000");
+app.get("/api/users/currentuser", (req, res) => {
+  res.send({
+    name: "John Doe",
+    email: "JohnDoe@gmail.com",
+  });
+})
+
+app.listen(3000, () => {
+  console.log("Listening on http://localhost:3000");
 });
