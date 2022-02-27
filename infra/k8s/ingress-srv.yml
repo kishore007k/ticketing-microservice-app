@@ -10,10 +10,19 @@ spec:
     - host: ticketing.dev
       http:
         paths:
+          # the incoming request will match the path in order
           - path: /api/users/?(.*)
             pathType: Prefix
             backend:
               service:
                 name: auth-srv
+                port:
+                  number: 3000
+
+          - path: /?(.*)
+            pathType: Prefix
+            backend:
+              service:
+                name: client-next-srv
                 port:
                   number: 3000
