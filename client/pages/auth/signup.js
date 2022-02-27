@@ -1,23 +1,25 @@
 import React, { useState } from "react";
-import axios from "axios";
 import { ToastContainer } from "react-toastify";
-import { errorToast, successToast } from "../../components/Toast";
+import useRequest from "../../hooks/useRequests";
+import Router from "next/router";
 
 const SignUp = () => {
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 
+	const { doRequest } = useRequest({
+		url: "/api/users/signup",
+		method: "post",
+		body: {
+			email,
+			password,
+		},
+		onSuccess: () => Router.push("/"),
+	});
+
 	const onSubmit = async (e) => {
 		e.preventDefault();
-		try {
-			const response = await axios.post("/api/users/signup", { email, password });
-			successToast(JSON.stringify(response.data));
-		} catch (error) {
-			const errorsArr = error.response.data.errors;
-			errorsArr.forEach((error) => {
-				errorToast(JSON.stringify(error.message));
-			});
-		}
+		doRequest();
 	};
 
 	return (
