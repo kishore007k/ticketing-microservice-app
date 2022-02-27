@@ -8,7 +8,10 @@ const useRequest = ({ url, method, body, onSuccess }) => {
 	const doRequest = async () => {
 		try {
 			const response = await axios[method](url, body);
-			successToast(JSON.stringify(response.data.email));
+
+			if (response.data) {
+				successToast(JSON.stringify(response.data.email));
+			}
 
 			if (onSuccess) {
 				onSuccess(response.data);
