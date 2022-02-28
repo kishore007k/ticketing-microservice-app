@@ -1,12 +1,9 @@
 import express from "express";
 import "express-async-errors";
 import { json } from "body-parser";
-import { currentUserRouter } from "./routes/current-user";
-import { signInRouter } from "./routes/sign-in";
-import { signUpRouter } from "./routes/sign-up";
-import { signOutRouter } from "./routes/sign-out";
-import { NotFoundError, errorHandler } from "@kishore_007k/common";
+import { NotFoundError, errorHandler, currentUser } from "@kishore_007k/common";
 import cookieSession from "cookie-session";
+import { createTicketRouter } from "./routes/new";
 
 const app = express();
 
@@ -20,10 +17,9 @@ app.use(
 	})
 );
 
-app.use(currentUserRouter);
-app.use(signInRouter);
-app.use(signOutRouter);
-app.use(signUpRouter);
+app.use(currentUser); // Check if user is signed in
+
+app.use(createTicketRouter);
 
 app.all("*", async (req, res) => {
 	throw new NotFoundError();
