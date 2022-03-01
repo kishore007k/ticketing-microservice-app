@@ -11,7 +11,7 @@ spec:
       http:
         paths:
           # the incoming request will match the path in order
-          - path: /api/users/?(.*)
+          - path: /api/users/?(.*) # Auth Service
             pathType: Prefix
             backend:
               service:
@@ -19,7 +19,15 @@ spec:
                 port:
                   number: 3000
 
-          - path: /?(.*)
+          - path: /api/tickets/?(.*) # Ticketing Service
+            pathType: Prefix
+            backend:
+              service:
+                name: tickets-srv
+                port:
+                  number: 3000
+
+          - path: /?(.*) # Next Service
             pathType: Prefix
             backend:
               service:
